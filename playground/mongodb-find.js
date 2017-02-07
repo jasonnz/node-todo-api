@@ -41,9 +41,9 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
 
 // db.Todos.insert({
-//    text: 'Walk the dog',
+//    text: 'Eat Lunch',
 //    completed: false
-// })
+// });
 
 
 // db.Todos.update({"_id" : ObjectId("589830ba5d0e4f8e776dfad3")}, {text: 'Walk the dog', completed: true});
