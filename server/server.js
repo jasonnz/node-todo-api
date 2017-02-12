@@ -49,8 +49,10 @@ app.get('/todos/:id', (req, res) => {
             console.log('No todo _id found!');
             return res.status(404).send();
         }
-        console.log('todo by _id: ', JSON.stringify(todo));
-        res.status(200).send(JSON.stringify(todo));
+        
+        console.log('todo FOUND by _id: ', todo);
+        res.status(200).send(todo);
+        console.log('res.body.todo = ', res.body);
     }).catch((err) => {
         console.log('Processing error has occured!');
         res.status(400).send(err)
