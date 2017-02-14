@@ -79,7 +79,7 @@ app.delete('/todos/:id', (req, res) => {
         }
         
         console.log('todo FOUND by _id: ', todo);
-        res.status(200).send(todo);
+        res.status(200).send({todo});
     }).catch((err) => {
         console.log('Processing error has occured!');
         res.status(400).send(err)
