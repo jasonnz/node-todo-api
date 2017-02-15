@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 const expect = require('expect');
 const request = require('supertest');
 const {ObjectId} = require('mongodb');
