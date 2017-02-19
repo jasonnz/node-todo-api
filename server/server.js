@@ -9,6 +9,7 @@ const {ObjectId} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
+var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 const port = process.env.PORT || 3000;
@@ -135,6 +136,11 @@ app.post('/users', (req, res) => {
     }).catch((err) => {
         res.status(400).send(err);
     });
+});
+
+//Uses authenticate middleware defined above
+app.get('/users/me', authenticate, (req, res) => {  
+    res.send(req.user);
 });
 
 app.listen(port, ()=> {

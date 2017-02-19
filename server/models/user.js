@@ -42,7 +42,7 @@ UserSchema.methods.toJSON = function () {
 
 };
 
-UserSchema.methods.generateAuthToken = function () {
+UserSchema.methods.generateAuthToken = function() {
     var user = this;
     var access = 'auth';
     var token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
@@ -53,6 +53,30 @@ UserSchema.methods.generateAuthToken = function () {
         return token;
     });
 };
+
+UserSchema.statics.findByToken = function(token) {
+    var User = this;
+    var decoded;
+
+    try {
+        decoded = jwt.verify(token, 'abc123');
+    } catch (err) {
+        // console.log(err);
+        // return new Promise((resolve, reject) => {
+        //     reject();
+        // });
+
+        // Simple promise call below
+        return Promise.reject('Cannot verify!')
+    }
+
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'auth',
+    });
+  
+};  
 
 var User = mongoose.model('Users', UserSchema);
 
