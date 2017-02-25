@@ -147,11 +147,6 @@ app.listen(port, ()=> {
     console.log('Started at port ', port);
 });
 
-// POST /users/login {email}
-// setup route and pick off email and password from the request body
-// Verify by using response send, test in postman so get the user and email back
-
-
 app.post('/users/login', (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
     
