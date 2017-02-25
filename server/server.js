@@ -147,4 +147,26 @@ app.listen(port, ()=> {
     console.log('Started at port ', port);
 });
 
+// POST /users/login {email}
+// setup route and pick off email and password from the request body
+// Verify by using response send, test in postman so get the user and email back
+
+
+app.post('/users/login', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+    
+    User.findByCredentials(body.email, body.password).then((user)=> {    
+        
+        return user.generateAuthToken().then((token)=> {
+            res.header('x-auth', token).send(user);
+        });
+
+    //   res.send(body);
+    }).catch((err)=> {
+       res.status(400).send(err);
+    });
+
+    //res.send(body);
+});
+
 module.exports = {app};
